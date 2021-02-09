@@ -1,0 +1,8 @@
+version: '3.5'
+redis: 
+  image: redis:alpine
+  container_name: queue
+  ports: 
+    - "6379:6379"
+  expose: 
+    - 6379

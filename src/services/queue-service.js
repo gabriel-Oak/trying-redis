@@ -3,8 +3,12 @@ import * as jobs from "../jobs";
 
 const queues = Object.values(jobs).map((job) => ({
   bull: new Queue(job.key, {
-    host: process.env.REDIS_HOST,
+    redis: {
+      port: process.env.REDIS_PORT,
+      host: process.env.REDIS_HOST,
+    },
     port: process.env.REDIS_PORT,
+    host: process.env.REDIS_HOST,
   }),
   handler: job.handler,
   name: job.key,

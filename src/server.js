@@ -11,5 +11,5 @@ app.get('/', index);
 app.use(userRouter);
 
 app.listen(port, () => {
-  console.log(`Server is runnign at ${port}`);
+  console.log(`Server is runnign at port: ${port}`);
 });

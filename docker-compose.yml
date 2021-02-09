@@ -1,7 +1,31 @@
-redis: 
-  image: redis:alpine
-  container_name: redis-queue
-  ports: 
-    - "6379:6379"
-  expose: 
-    - 6379
+version: '3.5'
+
+services: 
+  redis: 
+    image: redis:alpine
+    container_name: queue
+    restart: always
+    expose: 
+      - 6379
+    ports: 
+      - "6379:6379"
+    networks:
+      - default
+
+  app:
+    container_name: try-redis
+    build: ./
+    restart: always
+    links: 
+      - redis
+    depends_on: 
+      - redis
+    volumes:
+      - .:/app
+    ports:
+      - 4000:4000
+    networks:
+      - default
+    environment: 
+      REDIS_HOST: "redis"
+      PORT: 4000
